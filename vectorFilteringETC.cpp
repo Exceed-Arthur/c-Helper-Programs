@@ -102,14 +102,13 @@ void WriteVectorToFile(vector<string> v, string newFileName) {
 	outFile << "]";
 }
 
-
 int main()
 {
   // Initialize array of pointer
   string scaleNames[7] = { "Phrygian", "Dorian", "Lydian", "Locrian",
                             "Harmonic Minor", "Natural Minor", "Melodic Minor"};
-  string keyNames[23] = { "A", "Ab", "A#","B", "Bb", "B#","C", "Cb", "C#",
-               "D", "Db", "D#","E", "Eb", "E#","F", "Fb", "F#","G", "Gb", "G#"};
+  string keyNames[23] = { "A ", "Ab ", "A#","B ", "Bb", "B#","C ", "Cb", "C#",
+               "D ", "Db", "D#","E ", "Eb", "E#","F ", "Fb", "F#","G ", "Gb", "G#"};
   string signatureNames[8] = { "Two Two", "Two Four","Three Four", "Four Two", "Four Four","Four Eight", "Five Four",
                             "Five Eight"};
 	string lengthNames[2] = { "Fragment", "Grand"};
@@ -125,19 +124,26 @@ int main()
 		cout<< scaleVector.size() << " ";
 		string fileName = scaleNames[i] + "Literal.py";
 		FilterVector(scaleVector, scaleNames[i]);
-	  WriteVectorToFile(scaleVector, fileName);
+		if (scaleVector.size() > 0)
+			WriteVectorToFile(scaleVector, fileName);
 	}
 	for (int i=0; i<20; i++){
 		vector<string> keyVector = iTovenObjectList;
 		FilterVector(keyVector, keyNames[i]);
 		PrintVector(keyVector);
-		WriteVectorToFile(keyVector, keyNames[i] + "Literal.py");
+		if (keyNames[i][1] == '#') {
+			char character = keyNames[i][0];
+			keyNames[i] = string(1, character) + "Sharp";
+		}
+		if (keyVector.size() > 0)
+			WriteVectorToFile(keyVector, keyNames[i] + "Literal.py");
 	}
 	for (int i=0; i<7; i++){
 		vector<string> timeVector = iTovenObjectList;
 		FilterVector(timeVector, signatureNames[i]);
 		PrintVector(timeVector);
-		WriteVectorToFile(timeVector, signatureNames[i] + "Literal.py");
+		if (timeVector.size() > 0)
+			WriteVectorToFile(timeVector, signatureNames[i] + "Literal.py");
 	}
 
 
