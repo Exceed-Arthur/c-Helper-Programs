@@ -48,6 +48,7 @@ void PrintVector(vector<string> v){
 bool StringContains(string s, string t) {
 	if (s.find(t) != std::string::npos) {
     std::cout << "found!" << '\n';
+		return true;
 	}
 	return false;
 }
