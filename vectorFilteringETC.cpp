@@ -46,7 +46,10 @@ void PrintVector(vector<string> v){
 }
 
 bool StringContains(string s, string t) {
-  return boost::algorithm::contains(s, t);
+	if (s.find(t) != std::string::npos) {
+    std::cout << "found!" << '\n';
+	}
+	return false;
 }
 
 void FilterVector(vector<string> &v, string filterPhrase){
