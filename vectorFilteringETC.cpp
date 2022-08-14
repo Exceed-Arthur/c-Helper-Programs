@@ -88,6 +88,32 @@ void FilterVectorPhrases(vector<string> &v, string filterPhrases[3]){
 }
 
 
+string trimmedString(string s) { //Remove 1 leading whitespace
+	vector<char> v;
+	for (int i=0; i<s.size(); i++) {
+		if (i==0) {
+			if (s[i] != ' ') {
+				v.push_back(s[i]);
+			}
+		}
+		else if (i == s.size()-1) {
+			if (s[i] != ' ' && s[i] != ',') {
+				v.push_back(s[i]);
+			}
+		}
+		else {
+			v.push_back(s[i]);
+		}
+	}
+	string builtString = "";
+	for (const auto &e : v) builtString+=e;
+	cout << endl << builtString;
+	return builtString;
+}
+
+
+
+
 void WriteVectorToFile(vector<string> v, string newFileName) {
 	// Create and open a text file
 	/*
@@ -102,7 +128,8 @@ void WriteVectorToFile(vector<string> v, string newFileName) {
 	std::ofstream outFile(newFileName);
 // the important part
 	outFile << "[";
-	for (const auto &e : v) outFile << "'" << e << "', ";
+
+	for (const auto &e : v) outFile << "'" << trimmedString(e) << "', ";
 	outFile << "]";
 }
 
