@@ -143,6 +143,8 @@ int main()
   string signatureNames[8] = { "Two Two", "Two Four","Three Four", "Four Two", "Four Four","Four Eight", "Five Four",
                             "Five Eight"};
 	string lengthNames[2] = { "Fragment", "Grand"};
+	string typeNames[2] = { "Natural", "Melodical"};
+
 
   std::ifstream ifs(ogFileName); // Incoming File Stream
   std::string content( (std::istreambuf_iterator<char>(ifs) ),
@@ -169,12 +171,17 @@ int main()
 		if (keyVector.size() > 0)
 			WriteVectorToFile(keyVector, keyNames[i] + "Literal.py");
 	}
-	for (int i=0; i<7; i++){
-		vector<string> timeVector = iTovenObjectList;
-		FilterVector(timeVector, signatureNames[i]);
-		PrintVector(timeVector);
-		if (timeVector.size() > 0)
-			WriteVectorToFile(timeVector, signatureNames[i] + "Literal.py");
+
+	for (int i=0; i<2; i++){
+		vector<string> keyVector = iTovenObjectList;
+		FilterVector(keyVector, typeNames[i]);
+		PrintVector(keyVector);
+		if (keyNames[i][1] == '#') {
+			char character = typeNames[i][0];
+			typeNames[i] = string(1, character) + "Sharp";
+		}
+		if (keyVector.size() > 0)
+			WriteVectorToFile(keyVector, typeNames[i] + "Literal.py");
 	}
 
 
